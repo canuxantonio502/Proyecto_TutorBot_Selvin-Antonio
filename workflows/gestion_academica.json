@@ -1,0 +1,3224 @@
+{
+  "name": "TutorBot",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message",
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -928,
+        128
+      ],
+      "id": "6b839ab9-f8af-4413-ade1-49e712075691",
+      "name": "Telegram Trigger",
+      "webhookId": "13c29179-9fe6-4bb6-9d92-1e49c93a6290"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1864904987,
+          "mode": "list",
+          "cachedResultName": "sesiones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1864904987"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "telegram_user",
+              "lookupValue": "={{ $json.message.from.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -208,
+        16
+      ],
+      "id": "32ac5c92-9e20-4d65-a793-c3fad48c19fd",
+      "name": "Get row(s) in sheet1",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1864904987,
+          "mode": "list",
+          "cachedResultName": "sesiones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1864904987"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telegram_user": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+            "pantalla_actual": "menu_principal",
+            "paso_actual": "0",
+            "datos_parciales": "{}"
+          },
+          "matchingColumns": [
+            "telegram_user"
+          ],
+          "schema": [
+            {
+              "id": "telegram_user",
+              "displayName": "telegram_user",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "pantalla_actual",
+              "displayName": "pantalla_actual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "paso_actual",
+              "displayName": "paso_actual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "datos_parciales",
+              "displayName": "datos_parciales",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c286f664-82a3-447f-9989-99958d9b8cbe",
+      "name": "Append or update row in sheet"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "09acff91-dc8e-4b0f-9918-0efd49429a7b",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "Hola",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "4169324d-32a4-4393-b894-705bc3cb1a4c",
+              "leftValue": "={{ $json.message.text }}",
+              "rightValue": "/start",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -576,
+        144
+      ],
+      "id": "dadd2dda-63b1-44ae-93d6-281448794947",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1864904987,
+          "mode": "list",
+          "cachedResultName": "sesiones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1864904987"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "telegram_user",
+              "lookupValue": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -352,
+        304
+      ],
+      "id": "8fe34bc7-0590-421c-b515-5653e32266d5",
+      "name": "Get row(s) in sheet",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "1",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "3e7f7fc1-1d5a-4417-a621-8c1d742184db"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "6d9741af-ed74-449c-a93b-cfe8f39973df",
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "2",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "4b05024f-109e-450b-a939-ba2749c3b60a",
+                    "leftValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+                    "rightValue": "3",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        784,
+        352
+      ],
+      "id": "f075aa79-47fd-4473-892e-ff65e036baec",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1864904987,
+          "mode": "list",
+          "cachedResultName": "sesiones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1864904987"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telegram_user": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+            "pantalla_actual": "seleccion_materia",
+            "paso_actual": "1",
+            "datos_parciales": "{}"
+          },
+          "matchingColumns": [
+            "telegram_user"
+          ],
+          "schema": [
+            {
+              "id": "telegram_user",
+              "displayName": "telegram_user",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "pantalla_actual",
+              "displayName": "pantalla_actual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "paso_actual",
+              "displayName": "paso_actual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "datos_parciales",
+              "displayName": "datos_parciales",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1248,
+        208
+      ],
+      "id": "1cf22cf1-fd75-4589-9b52-33ef0b9a1bd6",
+      "name": "Update row in sheet1"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "Seleccione la materia a asignarse:\n1 - Matematicas\n2 - Ingles\n3 - Literatura\n4 - Historia\n5 - Biologia",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1472,
+        160
+      ],
+      "id": "e993dd37-d8cd-459c-9d10-a1a60859d81d",
+      "name": "Send a text message1",
+      "webhookId": "d27fd908-ffbc-46e2-bba5-6f1336f2d03b"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.pantalla_actual }}",
+                    "rightValue": "esperando_menu",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "83b2dbb7-a986-459d-8063-1983f67d5335"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "842eeb2c-def9-43d3-8ef2-c25eafec09a2",
+                    "leftValue": "={{ $json.pantalla_actual }}",
+                    "rightValue": "seleccion_materia",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "ba652bc1-dc75-494a-9045-b5cf255c343d",
+                    "leftValue": "={{ $json.pantalla_actual }}",
+                    "rightValue": "solicitar_fecha",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "9cccc0fe-0f19-49a5-9875-dcccba116893",
+                    "leftValue": "={{ $json.pantalla_actual }}",
+                    "rightValue": "cancelando_tutoria",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "c0c623ca-9c79-4f70-b777-573c4e62e56a",
+                    "leftValue": "={{ $json.pantalla_actual }}",
+                    "rightValue": "esperando_datos",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        -512,
+        1088
+      ],
+      "id": "5bbbe6c8-ac40-4149-8362-f30c9721ff7c",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const materias = {\"1\":\"Matemática\",\"2\":\"Inglés\",\"3\":\"Literatura\",\"4\":\"Historia\",\"5\":\"Biología\"};\nreturn { materia_seleccionada: materias[$('Telegram Trigger').first().json.message.text] };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        432,
+        816
+      ],
+      "id": "332af13e-98c3-4a4a-a2f9-d1b57f653acb",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1864904987,
+          "mode": "list",
+          "cachedResultName": "sesiones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1864904987"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telegram_user": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+            "datos_parciales": "={{ $json.materia_seleccionada }}",
+            "paso_actual": "2",
+            "pantalla_actual": "solicitar_fecha"
+          },
+          "matchingColumns": [
+            "telegram_user"
+          ],
+          "schema": [
+            {
+              "id": "telegram_user",
+              "displayName": "telegram_user",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "pantalla_actual",
+              "displayName": "pantalla_actual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "paso_actual",
+              "displayName": "paso_actual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "datos_parciales",
+              "displayName": "datos_parciales",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        640,
+        816
+      ],
+      "id": "53d39298-5f25-4bfb-aa98-b8862e495238",
+      "name": "Update row in sheet2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "dafcf7a9-6eb7-45b3-860f-70451856e214",
+              "leftValue": "={{ $json.pantalla_actual }}",
+              "rightValue": "solicitar_fecha",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        848,
+        816
+      ],
+      "id": "e3537345-a315-4165-8399-3083f49c39dd",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "const regex = /^\\d{2}-\\d{2}-\\d{4}$/;\nconst valido = regex.test($('Telegram Trigger').first().json.message.text);\nreturn { fecha_valida: valido, fecha_ingresada: $('Telegram Trigger').first().json.message.text };"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        1408
+      ],
+      "id": "3ab649dc-e0a3-4521-8075-415e205aaa04",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e6f6bb25-4d8d-43e1-83cb-b1f6bb53f82b",
+              "leftValue": "={{ $json.fecha_valida }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        432,
+        1408
+      ],
+      "id": "08b0fc90-1fd5-4467-93ea-64924b3b88f6",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "Por favor ingrese una fecha válida.\nPara ello utilice el formato DD-MM-YYYY",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        688,
+        1504
+      ],
+      "id": "f465d484-62e9-492d-b211-11dc0fb7da2d",
+      "name": "Send a text message3",
+      "webhookId": "c8379c63-710d-4f7e-bb6c-519686c9802e"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1325349352,
+          "mode": "list",
+          "cachedResultName": "tutorias",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1325349352"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "id_estudiante",
+              "lookupValue": "={{ $('Telegram Trigger').item.json.message.from.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1248,
+        368
+      ],
+      "id": "47249992-46c4-42ef-8fa0-6a3bddb40576",
+      "name": "Get row(s) in sheet2",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a2f80c87-a35a-4049-939c-8f1779227feb",
+              "leftValue": "={{ $json.id_estudiante }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1456,
+        368
+      ],
+      "id": "5cf80978-6e50-4cf5-bb18-7562cb1ada43",
+      "name": "If4"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Eres un asistente con acceso a una herramienta de lectura de documentos/hojas de cálculo. Utiliza obligatoriamente tu herramienta de búsqueda para localizar en el archivo el ID de estudiante: {{ $('Get row(s) in sheet2').item.json.id_estudiante }}. Una vez que extraigas los datos de esa fila, verifica si tiene tutorías asignadas y devuélveme la información detallada de ellas. Sé claro, conciso y breve con tu respuesta.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1952,
+        128
+      ],
+      "id": "4b7c4b01-571a-4d15-82c4-081530786fd7",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        1888,
+        352
+      ],
+      "id": "b9a3a34f-de46-43bb-a461-688a097871e1",
+      "name": "Google Gemini Chat Model"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2304,
+        128
+      ],
+      "id": "f58732ab-2d04-4308-82b3-46575aad5fb4",
+      "name": "Send a text message4",
+      "webhookId": "65875522-dd78-4cfa-a662-8c7eae29fb9c"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "Aún no tienes tutorías asignadas...",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1728,
+        480
+      ],
+      "id": "0a61f079-9a30-4cfd-ac00-106427fae863",
+      "name": "Send a text message5",
+      "webhookId": "d6580e5c-0fdb-48f0-9520-dfb14af45e8c"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1325349352,
+          "mode": "list",
+          "cachedResultName": "tutorias",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1325349352"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        2112,
+        336
+      ],
+      "id": "7223b71c-e929-428f-9f6c-51178aac10dd",
+      "name": "Get row(s) in sheet in Google Sheets"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1325349352,
+          "mode": "list",
+          "cachedResultName": "tutorias",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1325349352"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "id_estudiante",
+              "lookupValue": "={{ $('Telegram Trigger').item.json.message.from.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1248,
+        544
+      ],
+      "id": "4d1f84b9-a8c2-4212-a50a-a9e325be13cb",
+      "name": "Get row(s) in sheet3",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "={{ $json.mensaje_telegram }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1664,
+        688
+      ],
+      "id": "542ab948-ce9c-4471-ba94-58eaebbce87e",
+      "name": "Send a text message6",
+      "webhookId": "cd2d3f4e-ce3c-478e-830d-f57d8444870e"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nif (items.length === 0) {\n  return [{ \n    json: { \n      mensaje_telegram: \"Actualmente no tienes tutorías registradas para este ID.\" \n    } \n  }];\n}\n\nconst listaTutorias = items.map(item => {\n  const tutoria = item.json;\n\n  return `- ID: ${tutoria.id_tutoria} - ${tutoria.materia} (Estado: ${tutoria.estado})`;\n}).join(\"\\n\");\n\nconst mensajeFinal = `Este es el detalle de las tutorías solicitadas:\\n\\n${listaTutorias}\\n\\nIngresa el ID de la tutoria a Cancelar`;\n\nreturn [{ \n  json: { \n    mensaje_telegram: mensajeFinal \n  } \n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1456,
+        544
+      ],
+      "id": "483ef9b8-1dd5-4e50-85b1-42e768306d82",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1864904987,
+          "mode": "list",
+          "cachedResultName": "sesiones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1864904987"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telegram_user": "={{ $json.result.chat.id }}",
+            "pantalla_actual": "cancelando_tutoria",
+            "paso_actual": "1",
+            "datos_parciales": "{}"
+          },
+          "matchingColumns": [
+            "telegram_user"
+          ],
+          "schema": [
+            {
+              "id": "telegram_user",
+              "displayName": "telegram_user",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "pantalla_actual",
+              "displayName": "pantalla_actual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "paso_actual",
+              "displayName": "paso_actual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "datos_parciales",
+              "displayName": "datos_parciales",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1872,
+        688
+      ],
+      "id": "6de7ae5b-f00d-4fc9-8a1e-a7a025b6be30",
+      "name": "Append or update row in sheet1"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1325349352,
+          "mode": "list",
+          "cachedResultName": "tutorias",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1325349352"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id_tutoria": "={{ $('Telegram Trigger').item.json.message.text }}",
+            "estado": "Cancelado",
+            "id_estudiante": "={{ $('Get row(s) in sheet4').item.json.id_estudiante }}",
+            "id_tutor": "={{ $('Get row(s) in sheet4').item.json.id_tutor }}",
+            "materia": "={{ $('Get row(s) in sheet4').item.json.materia }}",
+            "fecha": "={{ $('Get row(s) in sheet4').item.json.fecha }}",
+            "hora": "={{ $('Get row(s) in sheet4').item.json.hora }}"
+          },
+          "matchingColumns": [
+            "id_tutoria"
+          ],
+          "schema": [
+            {
+              "id": "id_tutoria",
+              "displayName": "id_tutoria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "id_estudiante",
+              "displayName": "id_estudiante",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "id_tutor",
+              "displayName": "id_tutor",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "materia",
+              "displayName": "materia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hora",
+              "displayName": "hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        992,
+        1808
+      ],
+      "id": "4e891e1e-88c4-42a1-b684-be558983daa6",
+      "name": "Append or update row in sheet2"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1325349352,
+          "mode": "list",
+          "cachedResultName": "tutorias",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1325349352"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "id_tutoria",
+              "lookupValue": "={{ $('Telegram Trigger').item.json.message.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        16,
+        1552
+      ],
+      "id": "985eb705-0b83-432b-a993-498420695bc3",
+      "name": "Get row(s) in sheet4",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "=La tutoría de {{ $('Get row(s) in sheet4').item.json.materia }}, con ID {{ $('Get row(s) in sheet4').item.json.id_tutoria }}, fue cancelada exitosamente.\nEscribe \"Hola\" para continuar...",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1168,
+        1808
+      ],
+      "id": "453ea49d-0c3e-41da-91e7-0dd7dd3da5bf",
+      "name": "Send a text message7",
+      "webhookId": "bc35f7f9-1bbc-4626-8607-479d3602af82"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d9c393f0-25cf-4c01-bb3a-ff2566691ddf",
+              "leftValue": "={{ $json.id_tutoria }}",
+              "rightValue": "={{ $('Telegram Trigger').item.json.message.text }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        752,
+        1824
+      ],
+      "id": "a2f39bae-e4df-40f7-a762-19efd0b9cf39",
+      "name": "If5"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9fb80799-9209-431e-b8de-7453d4924174",
+              "name": "id_tutoria",
+              "value": "={{ $json.id_tutoria }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        544,
+        1760
+      ],
+      "id": "56075318-1da9-4f26-b9f0-c728b0dc46b4",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "El ID ingresado no es válido o no existe dentro de la base de datos, por favor inténtalo de nuevo:",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        992,
+        2000
+      ],
+      "id": "c3f0c167-6081-45ba-9b35-e03d325b459f",
+      "name": "Send a text message8",
+      "webhookId": "b0a67a1d-c0c4-49da-adc1-218717b91bcf"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Obtener los datos del trigger y del estado anterior\nconst mensajeTelegram = $('Telegram Trigger').first().json.message.text;\nconst datosSesion = $('Get row(s) in sheet').first().json;\n\n// 2. Extraer la materia guardada por tu compañero en el paso anterior\n// Nota: Tu compañero guarda la materia en \"datos_parciales\" (ej: \"Matemática\")\nconst materia = datosSesion.datos_parciales;\n\n// 3. Convertir fecha de DD-MM-YYYY a YYYY-MM-DD\n// El mensaje actual de Telegram contiene la fecha validada por el Regex de tu compañero\nconst partesFecha = mensajeTelegram.split('-'); // [DD, MM, YYYY]\nconst fechaISO = `${partesFecha[2]}-${partesFecha[1]}-${partesFecha[0]}`; // YYYY-MM-DD\n\nreturn [{\n  json: {\n    telegram_user: datosSesion.telegram_user,\n    materia_buscar: materia,\n    fecha_buscar: fechaISO\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1216,
+        1456
+      ],
+      "id": "5495c447-8db5-4132-8630-6f3be2153256",
+      "name": "Formatear Datos de Entrada"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "tutores",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "especialidad_materias",
+              "lookupValue": "={{ $json.materia_buscar }}"
+            },
+            {
+              "lookupColumn": "estado_tutor",
+              "lookupValue": "Activo"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1680,
+        1728
+      ],
+      "id": "64699b0c-435b-4061-b0ef-a3debb03a4bd",
+      "name": "turores",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1961792700,
+          "mode": "list",
+          "cachedResultName": "disponibilidad",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1961792700"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "estado_dispon",
+              "lookupValue": "Libre"
+            },
+            {
+              "lookupColumn": "dia_semana",
+              "lookupValue": "={{ $json.dia_semana_buscar }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2224,
+        1536
+      ],
+      "id": "e6a488d8-8128-4475-b21e-c4b7ce1c137a",
+      "name": "disponibilidad",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1864904987,
+          "mode": "list",
+          "cachedResultName": "sesiones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1864904987"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telegram_user": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+            "pantalla_actual": "buscando_opciones",
+            "paso_actual": "3",
+            "datos_parciales": "={{ $('Get row(s) in sheet').item.json.datos_parciales }}, {{ $('Code in JavaScript1').item.json.fecha_ingresada }}"
+          },
+          "matchingColumns": [
+            "telegram_user"
+          ],
+          "schema": [
+            {
+              "id": "telegram_user",
+              "displayName": "telegram_user",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "pantalla_actual",
+              "displayName": "pantalla_actual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "paso_actual",
+              "displayName": "paso_actual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "datos_parciales",
+              "displayName": "datos_parciales",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        864,
+        1344
+      ],
+      "id": "adcdc14f-dd84-4146-b3e5-86c5ce319850",
+      "name": "BuscarSesiones"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Obtenemos los datos del tutor que entran directo a este nodo\nconst tutorData = $input.item.json;\n\n// 2. Buscamos la fecha directamente usando la propiedad nativa de n8n context\nconst fechaTexto = $('Formatear Datos de Entrada').first().json.fecha_buscar;\n\n// 3. Arreglo de días en español\nconst diasSemana = [\"Domingo\", \"Lunes\", \"Martes\", \"Miércoles\", \"Jueves\", \"Viernes\", \"Sábado\"];\n\n// 4. Calculamos el día de la semana de manera segura\nconst fechaObjeto = new Date(fechaTexto + 'T00:00:00');\nconst diaCalculado = diasSemana[fechaObjeto.getDay()];\n\n// 5. Retornamos la unión limpia de los datos\nreturn [{\n  json: {\n    ...tutorData, // id_tutor, nombre, especialidad_materias, estado\n    dia_semana_buscar: diaCalculado,\n    fecha_buscar: fechaTexto\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2016,
+        1536
+      ],
+      "id": "422669fc-a3eb-478b-a51d-5900a1ae3538",
+      "name": "FormateoDeFechaADia"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "No contamos tutor disponible. Intenta más tarde.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2000,
+        1904
+      ],
+      "id": "0bc3b4e2-c26a-4ffd-a545-9669ae5c7071",
+      "name": "TutorNoEncontrado",
+      "webhookId": "da74b0a5-9b2f-42bb-8ada-2de394902a23"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "Ingresa la fecha en formato DD-MM-YYYY.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1408,
+        880
+      ],
+      "id": "720ddd9d-9353-4874-8f0f-43be273e8496",
+      "name": "IngresarFecha",
+      "webhookId": "d6c882fc-5557-4025-bbf5-07f7ad870ab5"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "3233a246-813a-40ae-bd66-66b21b4a067d",
+              "leftValue": "={{ $json.estado_tutor }}",
+              "rightValue": "Activo",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1888,
+        1728
+      ],
+      "id": "22bf02e9-682a-4755-b215-00527c19b956",
+      "name": "estado_tutor"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "b08a0cba-94ac-46d2-8e90-448406906806",
+              "leftValue": "={{ $json.estado_dispon }}",
+              "rightValue": "Libre",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2384,
+        1536
+      ],
+      "id": "adaa51df-4871-40a5-a927-50f3c4fce08e",
+      "name": "If6"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "El horario esta ocupado. Intenta más tarde.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2496,
+        1792
+      ],
+      "id": "947e72f2-51b5-4185-b0dc-45f4b3106e56",
+      "name": "FechaNoDisponible",
+      "webhookId": "da74b0a5-9b2f-42bb-8ada-2de394902a23"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1961792700,
+          "mode": "list",
+          "cachedResultName": "disponibilidad",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1961792700"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $('disponibilidad').item.json.row_number }}",
+            "estado_dispon": "Ocupado",
+            "id_tutor": "={{ $json.id_tutor }}",
+            "id_dispo": "={{ $('disponibilidad').item.json.id_dispo }}",
+            "dia_semana": "={{ $('disponibilidad').item.json.dia_semana }}",
+            "hora_inicio": "={{ $('disponibilidad').item.json.hora_inicio }}",
+            "hora_fin": "={{ $('disponibilidad').item.json.hora_fin }}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "id_dispo",
+              "displayName": "id_dispo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "id_tutor",
+              "displayName": "id_tutor",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "dia_semana",
+              "displayName": "dia_semana",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "hora_inicio",
+              "displayName": "hora_inicio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "hora_fin",
+              "displayName": "hora_fin",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "estado_dispon",
+              "displayName": "estado_dispon",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2768,
+        1536
+      ],
+      "id": "abfd038a-2986-48d0-ac39-69c4d4d10d88",
+      "name": "ActualDispaOcupado"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1325349352,
+          "mode": "list",
+          "cachedResultName": "tutorias",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1325349352"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id_estudiante": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+            "id_tutor": "={{ $json.id_tutor }}",
+            "materia": "={{ $('Formatear Datos de Entrada').first().json.materia_buscar }}",
+            "fecha": "={{ $('Formatear Datos de Entrada').first().json.fecha_buscar }}",
+            "hora": "={{ $json.hora_inicio }}",
+            "estado": "Agendada",
+            "id_tutoria": "={{ new Date().getTime() }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "id_tutoria",
+              "displayName": "id_tutoria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "id_estudiante",
+              "displayName": "id_estudiante",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "id_tutor",
+              "displayName": "id_tutor",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "materia",
+              "displayName": "materia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hora",
+              "displayName": "hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2592,
+        1536
+      ],
+      "id": "dab9c9ab-44c9-4fda-93c3-2eb6082821db",
+      "name": "Append row in sheet1"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=🎉🎉¡¡Felicidades!!🎉🎉\nHas sido registrado a tu nueva 📝tutoría de  {{ $('turores').item.json.especialidad_materias }}, para el 🗓️día {{ $('ActualDispaOcupado').item.json.dia_semana }}, ⏳{{ $('Formatear Datos de Entrada').item.json.fecha_buscar }}\n\n⏱️Hora de Inicio: {{ $('ActualDispaOcupado').item.json.hora_inicio }}\n⏱️Hora de Finalización: {{ $('ActualDispaOcupado').item.json.hora_fin }}\n\n🧑‍🏫Tutor asignado: {{ $('turores').item.json.nombre }}\n\nPara finalizar, brindenos los siguientes datos:\n- Nombre Completo:",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3248,
+        1568
+      ],
+      "id": "f3073b58-f098-4b8a-9fce-99db4e94a742",
+      "name": "TutoriaRegistrada",
+      "webhookId": "b5275b25-dbae-47c7-bbe7-870da2ced770"
+    },
+    {
+      "parameters": {
+        "chatId": "7511039778",
+        "text": "=  📝Tutoría Asignada\nHola {{ $('Get row(s) in sheet5').item.json.nombre }}, se te asigno al alumno {{ $('Append or update row in sheet4').item.json.nombre_completo }}.\n\n📚 Materia: {{ $('Get row(s) in sheet5').item.json.especialidad_materias }}\n📆 Fecha: {{ $json.fecha }}\n⏰ Horario: {{ $json.hora }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        384,
+        2016
+      ],
+      "id": "c73c560c-39fc-4629-b296-2b361009ce88",
+      "name": "NotificacionAlTutor",
+      "webhookId": "22c0ba3f-5cd7-4d99-93ea-f7d5cc65441a"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1325349352,
+          "mode": "list",
+          "cachedResultName": "tutorias",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1325349352"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id_tutoria": "={{ $('Append row in sheet1').item.json.id_tutoria }}",
+            "id_estudiante": "={{ $('Append row in sheet1').item.json.id_estudiante }}",
+            "id_tutor": "={{ $('Append row in sheet1').item.json.id_tutor }}",
+            "materia": "={{ $('Append row in sheet1').item.json.materia }}",
+            "fecha": "={{ $('Append row in sheet1').item.json.fecha }}",
+            "hora": "={{ $('Append row in sheet1').item.json.hora }}",
+            "estado": "={{ $('Append row in sheet1').item.json.estado }}",
+            "row_number": "={{ $json.row_number }}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "id_tutoria",
+              "displayName": "id_tutoria",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "id_estudiante",
+              "displayName": "id_estudiante",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "id_tutor",
+              "displayName": "id_tutor",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "materia",
+              "displayName": "materia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha",
+              "displayName": "fecha",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hora",
+              "displayName": "hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2960,
+        1536
+      ],
+      "id": "cfeff850-7079-459d-8c26-9415dbd6277c",
+      "name": "ActualizaDatosEnTurorias"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.from.id }}",
+        "text": "=Bienvenido a TutorBot.\nSelecciona:\n1 - para Solicitar tutoría.\n2 - para Consultar estado.\n3 - para Cancelar tutoría.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "1f84d0f2-57db-4ab7-82ed-296e568353b6",
+      "name": "Send a text message2",
+      "webhookId": "f4512e4e-4aeb-43c3-aa69-323ed24a1782"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1864904987,
+          "mode": "list",
+          "cachedResultName": "sesiones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1864904987"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telegram_user": "={{ $json.result.chat.id }}",
+            "pantalla_actual": "esperando_datos",
+            "paso_actual": "0",
+            "datos_parciales": ""
+          },
+          "matchingColumns": [
+            "telegram_user"
+          ],
+          "schema": [
+            {
+              "id": "telegram_user",
+              "displayName": "telegram_user",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "pantalla_actual",
+              "displayName": "pantalla_actual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "paso_actual",
+              "displayName": "paso_actual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "datos_parciales",
+              "displayName": "datos_parciales",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        3456,
+        1568
+      ],
+      "id": "dccfc858-328f-4ada-96ce-be725b872f81",
+      "name": "Append or update row in sheet3"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 135897206,
+          "mode": "list",
+          "cachedResultName": "estudiantes",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=135897206"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nombre_completo": "={{ $('Telegram Trigger').item.json.message.text }}",
+            "id_usuario": "={{ $('Telegram Trigger').item.json.message.chat.id }}"
+          },
+          "matchingColumns": [
+            "id_usuario"
+          ],
+          "schema": [
+            {
+              "id": "id_usuario",
+              "displayName": "id_usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre_completo",
+              "displayName": "nombre_completo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -624,
+        1904
+      ],
+      "id": "ee12618b-9afc-4a5c-830d-1f26f3ffbb22",
+      "name": "Append or update row in sheet4"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1864904987,
+          "mode": "list",
+          "cachedResultName": "sesiones",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1864904987"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "telegram_user": "={{ $json.result.chat.id }}",
+            "pantalla_actual": "esperando_menu",
+            "paso_actual": "1",
+            "datos_parciales": "{}"
+          },
+          "matchingColumns": [
+            "telegram_user"
+          ],
+          "schema": [
+            {
+              "id": "telegram_user",
+              "displayName": "telegram_user",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "pantalla_actual",
+              "displayName": "pantalla_actual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "paso_actual",
+              "displayName": "paso_actual",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "datos_parciales",
+              "displayName": "datos_parciales",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        464,
+        16
+      ],
+      "id": "a21d95c9-562f-4d37-bb14-c01857549de5",
+      "name": "Update row in sheet"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "tutores",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -384,
+        1920
+      ],
+      "id": "22be43f5-fb46-480e-93a7-49a7dde51694",
+      "name": "Get row(s) in sheet5"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1961792700,
+          "mode": "list",
+          "cachedResultName": "disponibilidad",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1961792700"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "hora_inicio"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -160,
+        1952
+      ],
+      "id": "f1cf0329-5312-4a0b-b176-148b26fd23c6",
+      "name": "Get row(s) in sheet6"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1325349352,
+          "mode": "list",
+          "cachedResultName": "tutorias",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1325349352"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        80,
+        1936
+      ],
+      "id": "2970bdea-ff30-4616-aaac-e100b9d695c0",
+      "name": "Get row(s) in sheet7"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtHour": 7
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -912,
+        -480
+      ],
+      "id": "68f7a3fe-4321-40fb-ad67-506d5943ba1e",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "fromEmail": "lisel07.ai@gmail.com",
+        "toEmail": "icaleladio@gmail.com",
+        "subject": "=📊 Reporte Semanal de Actividad - Tutorías Académicas ({{ $json.fecha_reporte }})",
+        "html": "=<h2>📊 Reporte Semanal de Tutorías</h2>\n<p>Coordinación Académica,</p>\n<p>A continuación, se presenta el resumen automático de la actividad del sistema de tutorías correspondiente a esta semana:</p>\n\n<table border=\"1\" cellpadding=\"8\" style=\"border-collapse: collapse; font-family: Arial, sans-serif; width: 100%; max-width: 500px;\">\n  <thead>\n    <tr style=\"background-color: #f2f2f2;\">\n      <th style=\"text-align: left;\">Métrica</th>\n      <th style=\"text-align: center;\">Cantidad</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>🟢 Tutorías Activas / Agendadas</td>\n      <td style=\"text-align: center;\"><strong>{{ $json.agendadas }}</strong></td>\n    </tr>\n    <tr>\n      <td>⚪ Tutorías Realizadas exitosamente</td>\n      <td style=\"text-align: center;\"><strong>{{ $json.realizadas }}</strong></td>\n    </tr>\n    <tr>\n      <td>🔴 Tutorías Canceladas</td>\n      <td style=\"text-align: center;\"><strong>{{ $json.canceladas }}</strong></td>\n    </tr>\n    <tr style=\"background-color: #eaf2ff;\">\n      <td><strong>Total de registros evaluados</strong></td>\n      <td style=\"text-align: center;\"><strong>{{ $json.total }}</strong></td>\n    </tr>\n  </tbody>\n</table>\n\n<p>Este reporte se genera de forma automatizada mediante el motor de n8n.</p>\n<p>Atentamente,<br><strong>Sistema de Gestión de Tutorías</strong></p>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        -288,
+        -480
+      ],
+      "id": "06f10f32-5a76-494f-96e6-d9741bc8654b",
+      "name": "Send an Email",
+      "webhookId": "8e4183ea-adef-4e43-9ab2-f0ce573acde8"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1325349352,
+          "mode": "list",
+          "cachedResultName": "tutorias",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1325349352"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -704,
+        -480
+      ],
+      "id": "043be5ac-8dca-445b-b022-3846b84fef64",
+      "name": "Get row(s) in sheet8"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Captura todas las filas que vienen de Google Sheets\nconst filas = typeof $input.all === 'function' ? $input.all() : [];\n\nlet agendadas = 0;\nlet canceladas = 0;\nlet realizadas = 0;\n\n// Recorre cada fila y cuenta según el estado\nfor (const fila of filas) {\n  const estado = fila.json.estado ? fila.json.estado.toLowerCase().trim() : '';\n  \n  if (estado === 'agendada') {\n    agendadas++;\n  } else if (estado === 'cancelada') {\n    canceladas++;\n  } else if (estado === 'completada' || estado === 'realizada') {\n    realizadas++;\n  }\n}\n\nconst totalTutorias = agendadas + canceladas + realizadas;\n\n// Devuelve los totales listos para el correo electrónico\nreturn [\n  {\n    json: {\n      total: totalTutorias,\n      agendadas: agendadas,\n      canceladas: canceladas,\n      realizadas: realizadas,\n      fecha_reporte: new Date().toLocaleDateString('es-ES')\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -496,
+        -480
+      ],
+      "id": "cc55fe68-dccc-46b5-bdd6-bf771891b5d1",
+      "name": "Code in JavaScript3"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.id_estudiante }}",
+        "text": "=🚨 ¡Tu Tutoría empieza en 1 hora!\n\nHola, te recordamos que tu sesión académica está por comenzar:\n\n📚 Materia: {{ $json.materia }}\n\n🕐 Hora: {{ $json.hora }}\n\nPor favor, prepárate y ten listos tus materiales. ¡Mucho éxito! 🚀",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        944,
+        -480
+      ],
+      "id": "2384bd34-3ead-4bcb-ae01-22ecdb724a92",
+      "name": "Send a text message",
+      "webhookId": "b09e8b98-d811-42ca-aa59-08d4223b12ab",
+      "credentials": {
+        "telegramApi": {
+          "id": "hImIm3U4OLFVcchY",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        320,
+        -480
+      ],
+      "id": "22962f4c-781e-453e-8523-bddd47e2270b",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Obtener la fecha y hora actual del servidor\nconst ahora = new Date();\n\n// 2. Aplicar el desfase de tu país (Guatemala es UTC-6) y sumarle 1 hora en el futuro (-6 + 1 = -5)\nconst proximaHoraObj = new Date(ahora.getTime() + (-5 * 60 * 60 * 1000));\n\n// 3. Extraer los datos formateados\nconst dia = String(proximaHoraObj.getUTCDate()).padStart(2, '0');\nconst mes = String(proximaHoraObj.getUTCMonth() + 1).padStart(2, '0');\nconst ano = proximaHoraObj.getUTCFullYear();\nconst fechaHoy = `${dia}-${mes}-${ano}`;\n\n// 4. Obtener la hora entera\nconst horaNumerica = proximaHoraObj.getUTCHours();\n\n// Formatear string para tu Sheets (Ejemplo: \"17:00\")\nconst horaFiltro = `${horaNumerica}:00`;\n\nreturn [\n  {\n    json: {\n      fecha_hoy: fechaHoy,\n      hora_proxima: horaFiltro\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        528,
+        -480
+      ],
+      "id": "f1759142-8222-4959-9dfa-813115649a26",
+      "name": "Code in JavaScript4"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1325349352,
+          "mode": "list",
+          "cachedResultName": "tutorias",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1325349352"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "fecha",
+              "lookupValue": "={{ $json.fecha_hoy }}"
+            },
+            {
+              "lookupColumn": "hora",
+              "lookupValue": "={{ $json.hora_proxima }}"
+            },
+            {
+              "lookupColumn": "estado",
+              "lookupValue": "Agendada"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        736,
+        -480
+      ],
+      "id": "72893b94-fae9-45a3-ace1-a5dce134a887",
+      "name": "Get row(s) in sheet9"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.id_estudiante }}",
+        "text": "=⏰ Recordatorio de Tutoría \n\nHola, te recordamos que tienes una tutoría programada para el día de mañana:  \n\n📚 Materia: {{ $json.materia }}  \n🕐 Hora: {{ $json.hora }}  \n\n¡Te deseamos mucho éxito en tu sesión! 🌟✍️",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2144,
+        -496
+      ],
+      "id": "bc7c52f9-67a0-48b3-bddf-a69832d878a5",
+      "name": "Send a text message9",
+      "webhookId": "a084fbbd-c0e0-4f02-9994-e8078b2144c4"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM",
+          "mode": "list",
+          "cachedResultName": "ChatBot",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1325349352,
+          "mode": "list",
+          "cachedResultName": "tutorias",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BIpfGnyU82k8AOV1N1MZnXbwCz0g844ICCuacnfPPTM/edit#gid=1325349352"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "fecha",
+              "lookupValue": "={{ $json.fecha_manana }}"
+            },
+            {
+              "lookupColumn": "estado",
+              "lookupValue": "Agendada"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1936,
+        -496
+      ],
+      "id": "82ed3cc5-5848-4153-802f-293d6785280d",
+      "name": "Get row(s) in sheet10"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtiene la fecha de hoy\nconst hoy = new Date();\n\n// Le suma 1 día para calcular mañana\nconst manana = new Date(hoy);\nmanana.setDate(hoy.getDate() + 1);\n\n// Extrae el día, mes y año de forma individual\nconst dia = String(manana.getDate()).padStart(2, '0');\nconst mes = String(manana.getMonth() + 1).padStart(2, '0'); // Los meses van de 0 a 11\nconst ano = manana.getFullYear();\n\n// Une los datos con guiones (Ejemplo: 11-07-2026)\nconst fechaFormateadaLatina = `${dia}-${mes}-${ano}`;\n\nreturn [\n  {\n    json: {\n      fecha_manana: fechaFormateadaLatina\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1728,
+        -496
+      ],
+      "id": "60ec4222-9ee7-46f7-ac33-2cda4b053d92",
+      "name": "Code in JavaScript5"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        1520,
+        -496
+      ],
+      "id": "c57598fa-86a6-4210-9725-2e21036718dd",
+      "name": "Schedule Trigger2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a text message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get row(s) in sheet4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Append or update row in sheet4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet2": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "IngresarFecha",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "BuscarSesiones",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet2": {
+      "main": [
+        [
+          {
+            "node": "If4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If4": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet3": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Send a text message6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message6": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet4": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet2": {
+      "main": [
+        [
+          {
+            "node": "Send a text message7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If5": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatear Datos de Entrada": {
+      "main": [
+        [
+          {
+            "node": "turores",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "turores": {
+      "main": [
+        [
+          {
+            "node": "estado_tutor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "disponibilidad": {
+      "main": [
+        [
+          {
+            "node": "If6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "BuscarSesiones": {
+      "main": [
+        [
+          {
+            "node": "Formatear Datos de Entrada",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FormateoDeFechaADia": {
+      "main": [
+        [
+          {
+            "node": "disponibilidad",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "estado_tutor": {
+      "main": [
+        [
+          {
+            "node": "FormateoDeFechaADia",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "TutorNoEncontrado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If6": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "FechaNoDisponible",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ActualDispaOcupado": {
+      "main": [
+        [
+          {
+            "node": "ActualizaDatosEnTurorias",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "ActualDispaOcupado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TutoriaRegistrada": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ActualizaDatosEnTurorias": {
+      "main": [
+        [
+          {
+            "node": "TutoriaRegistrada",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message2": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet4": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet5": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet6": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet7": {
+      "main": [
+        [
+          {
+            "node": "NotificacionAlTutor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet8": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript3": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript4": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet9": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet10": {
+      "main": [
+        [
+          {
+            "node": "Send a text message9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript5": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "77441142-b077-4707-ae8d-22c3a7658937",
+  "meta": {
+    "instanceId": "e90e2b586bb3c97da78c80ef76732c4694aa4cc4a4ef1813cafd6ef1c6374a45"
+  },
+  "nodeGroups": [],
+  "id": "HsG63SCM4OKa5J9B",
+  "tags": []
+}
