@@ -21,14 +21,6 @@ El sistema permite a alumnos, tutores y administradores gestionar tutorías, cur
 * **Solicitud de Tutorías:** Reserva automática de espacios con tutores disponibles.
 * **Notificaciones:** Alertas en tiempo real sobre confirmaciones o cambios en las sesiones.
 
-### 👨‍🏫 Para Tutores
-* **Gestión de Disponibilidad:** Configuración de horarios libres para tutorías directamente desde Telegram.
-* **Aceptación/Rechazo de Sesiones:** Control total sobre las solicitudes entrantes.
-
-### 🛠️ Para Administradores
-* **Panel de Control (Sheets):** Visibilidad centralizada de todas las interacciones, métricas de tutorías y carga académica.
-* **Gestión de Usuarios:** Alta y baja de alumnos y tutores en el sistema.
-
 ---
 ## Uso de Agente de Inteligencia Artificial (Google Gemini)
 
