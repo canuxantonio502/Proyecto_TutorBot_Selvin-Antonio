@@ -20,6 +20,7 @@ El sistema permite a alumnos, tutores y administradores gestionar tutorías, cur
 * **Consulta de Cursos:** Acceso rápido a la información y horarios de los cursos matriculados.
 * **Solicitud de Tutorías:** Reserva automática de espacios con tutores disponibles.
 * **Notificaciones:** Alertas en tiempo real sobre confirmaciones o cambios en las sesiones.
+* **Consulta de Notas:** Acceso al estado de las notas en tiempo real.
 
 ---
 ## Uso de Agente de Inteligencia Artificial (Google Gemini)
